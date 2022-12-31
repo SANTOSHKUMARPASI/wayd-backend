@@ -1,0 +1,91 @@
+swagger: "2.0"
+info:
+  description: "Swagger"
+  version: "1.0.0"
+  title: "Swagger"
+  contact:
+    email: "abc@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: ""
+# basePath: ""
+tags:
+  - name: "tutorials"
+    description: "Everything about Tutorials"
+    externalDocs:
+      description: "Find out more"
+      url: "http://swagger.io"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /api/signup:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Add a new user"
+      description: ""
+      operationId: "User"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "phone_number"
+          name: "password"
+          description: "Regster a vendor ,delivery boy, /any"
+          required: true
+          schema:
+            type: "object"
+      responses:
+        "200":
+          description: "Invalid input"
+      security:
+        - wayd_auth:
+            - "write:Tutorials"
+            - "read:Tutorials"
+
+securityDefinitions:
+  wayd_auth:
+    type: "oauth2"
+    authorizationUrl: ""
+    flow: "implicit"
+    scopes:
+      write:tutorials: "modify tutorials in your account"
+      read:tutorials: "read your tutorials"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+
+definitions:
+  Tutorial:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      description:
+        type: "string"
+      published:
+        type: "boolean"
+        default: true
+    xml:
+      name: "Tutorial"
+
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
